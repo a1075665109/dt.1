@@ -24,6 +24,7 @@ int isdirectory(char *path){
 		printf("%s\n",path);
 		return 0;
 	}else{
+		printf("%s\n",path);
 		return S_ISDIR(statbuf.st_mode);
 	}
 }
@@ -48,13 +49,14 @@ int main(int argc, char *argv[]){
 		char *path;
 
 		while ((de = readdir(dr)) != NULL){
-			//strcpy(temp,"/");
-			//strcat(temp,de->d_name);	
+			strcpy(temp,"./");
+			strcat(temp,de->d_name);	
+			
+			printf("%s\n",de->d_name);
 			//printf("%s\n",temp);
-			path = de->d_name;
-			if(isdirectory(path)==0){
-				//printf("no      %s  %s\n",de->d_name,de->d_type);
-			}else if(strcmp(de->d_name,".")||strcmp(de->d_name,"..")){
+			if(strcmp(de->d_name,".")||strcmp(de->d_name,"..")){
+			}else if(isdirectory(de->d_name)!=0){
+				printf("no      %s  %s\n",de->d_name);
 			}else {
 				printf("%s\n", de->d_name);
 			}
