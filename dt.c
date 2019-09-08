@@ -14,6 +14,7 @@
 #define PATH_MAX 255
 #endif
 
+// a recursive call with a path, space for indentation, level for subdirectory indentation and exeName for error
 void depthfirst(char* root,int space, int level,char* exeName,int Lflag,int dflag,int iflag,int pflag,int sflag,int tflag,int uflag,int gflag){
 	
 	//create a dirent pointer and a file stat variable
@@ -79,6 +80,7 @@ void depthfirst(char* root,int space, int level,char* exeName,int Lflag,int dfla
 		}
 		
 		 //////////////////////////////////// -t command for file type  ////////////////////////////////
+	
 		if(tflag ==1){
 			printf("FileType: ");
 			switch(fileStat.st_mode &S_IFMT){
@@ -212,10 +214,12 @@ int main(int argc, char* argv[]){
 				break;
 		}
 	}
+	
 	// if there are left over command line arguments, print them out as error or seen as a directory given
 	if(argv[optind]!=NULL){
         curDir = argv[optind];
 	}
+	
 	// call the traversal function with the directory, linespacing, the executable name argv[0], and all the flags.
 	depthfirst(curDir,lineSpace,1,argv[0],Lflag,dflag,iflag,pflag,sflag,tflag,uflag,gflag);
 	return 0;
